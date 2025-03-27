@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_workout_cab/presentations/oneboarding1.dart';
+import 'package:my_workout_cab/presentations/screens/oneboarding1.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 void main() {
