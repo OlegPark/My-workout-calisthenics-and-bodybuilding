@@ -69,7 +69,7 @@ class Onboarding1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.01),
+                  SizedBox(height: screenHeight * 0.0002),
                 ],
               ),
             ),
