@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_workout_cab/presentations/screens/oneboarding1.dart';
+import 'package:my_workout_cab/presentations/screens/oneboarding2.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const Onboarding1(),
+    ),
+    GoRoute(
+      path: '/onboarding2',
+      builder: (context, state) => const Onboarding2(),
+    ),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,8 +27,9 @@ class MyApp extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      routerConfig: _router,
       theme: ThemeData.light().copyWith(
         extensions: [
           CustomThemeExtension(
@@ -41,7 +57,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
-      home: const Oneboarding1(),
+      // home: const Oneboarding1(),
     );
   }
 }
