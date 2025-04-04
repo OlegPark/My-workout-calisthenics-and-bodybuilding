@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_workout_cab/presentations/screens/oneboarding1.dart';
+import 'package:my_workout_cab/presentations/navigation/gnav_bar.dart';
 import 'package:my_workout_cab/presentations/screens/oneboarding2.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
@@ -12,7 +12,7 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const Onboarding1(),
+      builder: (context, state) => const GoogleNavBar(),
     ),
     GoRoute(
       path: '/onboarding2',
