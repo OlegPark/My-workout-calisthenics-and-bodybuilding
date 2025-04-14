@@ -43,30 +43,34 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0), // Отступы вокруг GNav
+                  padding: const EdgeInsets.all(5.0),
                   child: GNav(
-                    padding: EdgeInsets.all(15), // Убираем внутренние отступы GNav
+                    padding: EdgeInsets.all(15),
                     tabBorderRadius: 30,
                     tabBackgroundColor: Colors.black,
                     curve: Curves.easeIn,
                     color: Colors.black,
                     activeColor: Colors.white,
+                    
                     gap: 8,
                     onTabChange: (index) => goToPage(index),
                     tabs: [
                       GButton(
                         icon: Icons.create_outlined,
-                        text: 'Персонализ',
+                        text: '        Персонализ        ',
                       ),
                       GButton(
                         icon: Icons.fitness_center_outlined,
-                        text: 'Тренировка',
+                        text: '        Тренировка        ',
                       ),
                       GButton(
                         icon: Icons.person_outline,
-                        text: 'Профиль',
+                        text: '         Профиль          ',
                       ),
                     ],
+                    tabBorder: Border.all(
+                        color: Colors.grey,
+                        width: 1),
                   ),
                 ),
               ),

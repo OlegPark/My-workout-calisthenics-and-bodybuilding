@@ -33,10 +33,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         extensions: [
           CustomThemeExtension(
-            primaryColor: const Color(0xFF165932), 
+            primaryColor: const Color(0xFFD9D9D9),
+            backgroundColor: const Color(0xFF222222),
+            cardColor: const Color(0xFF3A3A3A),
             secondaryColor: const Color(0xFF2ECC71),
-            cardColor: Colors.white,
-            backgroundColor: const Color(0xFFECECEC),
+            gnavColor: const Color(0xFF222222),
+            gnavColorRev: Colors.white,
             customTextStyle: const TextStyle(
               fontFamily: 'Roboto'
             ),
@@ -47,10 +49,12 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark().copyWith(
         extensions: [
           CustomThemeExtension(
-            primaryColor: const Color(0xFF2D490C),
-            secondaryColor: const Color(0xFF66A71A),
+            primaryColor: const Color(0xFF165932),
+            backgroundColor: const Color(0xFF3A3A3A),
             cardColor: Colors.white,
-            backgroundColor: const Color(0xFFECECEC),
+            secondaryColor: const Color(0xFF2ECC71),
+            gnavColor: const Color(0xFF222222),
+            gnavColorRev: Colors.white,
             customTextStyle: const TextStyle(
               fontFamily: 'Roboto'
             ),
