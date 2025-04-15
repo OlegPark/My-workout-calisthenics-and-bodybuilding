@@ -10,14 +10,9 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: customTheme?.backgroundColor,
       body: Center(
-        child: Column(
-          children: [
-            Text(
-              'Профиль',
-              style: TextStyle(color: Colors.white),
-            ),
-            // HumanBodyHeatmap(),
-          ],
+        child: Text(
+          'Профиль',
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );
