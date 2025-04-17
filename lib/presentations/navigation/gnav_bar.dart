@@ -15,13 +15,13 @@ class GoogleNavBar extends StatefulWidget {
 class _GoogleNavBarState extends State<GoogleNavBar> {
   int currentIndex = 0;
 
-  void goToPage(index) {
+  void goToPage(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
-  List pages = [
+  final List<Widget> pages = [
     const CreateScreen(),
     const TrainingScreen(),
     const ProfileScreen(),
@@ -30,47 +30,50 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
   @override
   Widget build(BuildContext context) {
     final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+    final mediaQuery = MediaQuery.of(context);
+    final scale = mediaQuery.size.width / 375.0;
+
     return Scaffold(
       body: Stack(
         children: [
           pages[currentIndex],
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 35,
+            left: 16 * scale,
+            right: 16 * scale,
+            bottom: 35 * scale,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(30 * scale),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5 * scale),
                 child: GNav(
-                  padding: EdgeInsets.all(15),
-                  tabBorderRadius: 30,
+                  padding: EdgeInsets.all(15 * scale),
+                  tabBorderRadius: 30 * scale,
                   tabBackgroundColor: customTheme?.backgroundColor ?? Colors.grey,
                   curve: Curves.easeIn,
                   activeColor: Colors.white,
-                  
-                  gap: 8,
-                  onTabChange: (index) => goToPage(index),
+                  gap: 8 * scale,
+                  onTabChange: goToPage,
                   tabs: [
                     GButton(
                       icon: Icons.create_outlined,
-                      text: '        Персонализ        ',
+                      text: '      Персонализ      ',
                     ),
                     GButton(
                       icon: Icons.fitness_center_outlined,
-                      text: '        Тренировка        ',
+                      text: '      Тренировка      ',
                     ),
                     GButton(
                       icon: Icons.person_outline,
-                      text: '         Профиль          ',
+                      text: '       Профиль        ',
                     ),
                   ],
                   tabBorder: Border.all(
-                      color: Colors.grey,
-                      width: 1),
+                    color: Colors.grey,
+                    width: 1 * scale,
+                  ),
                 ),
               ),
             ),
