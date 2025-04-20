@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 class Onboarding1 extends StatelessWidget {
   const Onboarding1({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+    
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -42,7 +45,7 @@ class Onboarding1 extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () => context.go('/onboarding2'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: customTheme?.primaryColor ?? Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8 * scale),
                           ),
