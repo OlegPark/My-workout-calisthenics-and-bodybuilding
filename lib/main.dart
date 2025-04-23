@@ -33,10 +33,10 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark().copyWith(
         extensions: [
           CustomThemeExtension(
-            primaryColor: const Color(0xFF165932),
-            backgroundColor: const Color(0xFF3A3A3A),
+            primaryColor: const Color(0xFF222222),
+            backgroundColor: const Color(0xFFD9D9D9),
             cardColor: Colors.white,
-            gnavColor: const Color(0xFF222222),
+            gnavColor: Colors.black,
             customTextStyle: const TextStyle(
               fontFamily: 'Roboto'
             ),

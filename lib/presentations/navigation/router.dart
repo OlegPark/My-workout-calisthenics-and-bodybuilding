@@ -1,12 +1,13 @@
 import 'package:go_router/go_router.dart';
-import 'package:my_workout_cab/presentations/screens/oneboarding1.dart';
-import 'package:my_workout_cab/presentations/screens/oneboarding2.dart';
+
+import 'package:my_workout_cab/presentations/screens/onboardings/onboarding2.dart';
+import 'package:my_workout_cab/presentations/screens/onboardings/onboarding3.dart';
 
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const Onboarding1(),
+      builder: (context, state) => const Onboarding3(),
     ),
     GoRoute(
       path: '/onboarding2',

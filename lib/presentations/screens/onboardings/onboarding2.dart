@@ -47,19 +47,20 @@ class Onboarding2 extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8 * scale),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: customTheme?.primaryColor ?? Colors.white,
-                          borderRadius: BorderRadius.circular(25 * scale),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 16 * scale),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: customTheme?.primaryColor ?? Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25 * scale),
+                            borderSide: BorderSide.none,
                           ),
-                          style: TextStyle(fontSize: 16 * scale),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16 * scale,
+                            vertical: 14 * scale,
+                          ),
                         ),
+                        style: TextStyle(fontSize: 16 * scale),
                       ),
                       SizedBox(height: 16 * scale),
                       Padding(
@@ -74,20 +75,21 @@ class Onboarding2 extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8 * scale),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: customTheme?.primaryColor ?? Colors.white,
-                          borderRadius: BorderRadius.circular(25 * scale),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 16 * scale),
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: customTheme?.primaryColor ?? Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25 * scale),
+                            borderSide: BorderSide.none,
                           ),
-                          style: TextStyle(fontSize: 16 * scale),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16 * scale,
+                            vertical: 14 * scale,
+                          ),
                         ),
+                        style: TextStyle(fontSize: 16 * scale),
                       ),
                       SizedBox(height: 40 * scale),
                       Center(
