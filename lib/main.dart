@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_workout_cab/firebase_options.dart';
 import 'package:my_workout_cab/presentations/navigation/router.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   runApp(const MyApp());
 }
 
