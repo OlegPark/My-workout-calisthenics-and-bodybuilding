@@ -28,9 +28,29 @@ class Onboarding3 extends StatelessWidget {
                   child: Container(color: Colors.transparent),
                 ),
               ),
-              Center(
+              Positioned(
+                top: 200 * scale,
+                left: 0,
+                right: 0,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'Вы забыли свой\nпароль?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24 * scale,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 300 * scale,
+                left: 0,
+                right: 0,
                 child: Padding(
-                  padding: EdgeInsets.all(20.0 * scale),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0 * scale),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +105,7 @@ class Onboarding3 extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'ВОЙТИ',
+                            'ВОСТАНОВИТЬ',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16 * scale,
