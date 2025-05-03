@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
+import 'package:intl/intl.dart';
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});
@@ -7,6 +8,8 @@ class TrainingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+    final now = DateTime.now();
+    
     return Scaffold(
       backgroundColor: customTheme?.backgroundColor,
       body: LayoutBuilder(
@@ -14,9 +17,15 @@ class TrainingScreen extends StatelessWidget {
           final baseWidth = 375.0;
           final scale = constraints.maxWidth / baseWidth;
           
+          final dates = List.generate(7, (index) => 
+              DateTime(now.year, now.month, now.day - 3 + index));
+          
           return SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24 * scale, vertical: 24 * scale),
+              padding: EdgeInsets.symmetric(
+                horizontal: 24 * scale, 
+                vertical: 24 * scale
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -30,44 +39,73 @@ class TrainingScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30 * scale),
-                  Row(
-                    children: [
-                      Container(
-                        width: 60 * scale,
-                        height: 90 * scale,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: customTheme?.cardColor ?? Colors.grey,
+                        width: 1 * scale,
                       ),
-                      SizedBox(width: 16 * scale),
-                      Container(
-                        width: 60 * scale,
-                        height: 90 * scale,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
+                      borderRadius: BorderRadius.circular(15 * scale),
+                    ),
+                    child: SizedBox(
+                      width: 350 * scale,
+                      height: 88 * scale,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(7, (index) {
+                          final date = dates[index];
+                          final isCurrentDay = date.day == now.day;
+                          final isPastDay = date.isBefore(now) && !isCurrentDay;
+                          final textColor = isPastDay ? customTheme?.backgroundColor : Colors.white;
+                          
+                          return GestureDetector(
+                            onTap: () {
+                              // Обработка нажатия на день
+                            },
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: isCurrentDay 
+                                    ? customTheme?.cardColor 
+                                    : isPastDay
+                                        ? customTheme?.primaryColor
+                                        : Colors.transparent,
+                                borderRadius: BorderRadius.circular(10 * scale),
+                              ),
+                              child: SizedBox(
+                                width: 42 * scale,
+                                height: 74 * scale,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 8 * scale),
+                                      child: Text(
+                                        DateFormat('E').format(date),
+                                        style: TextStyle(
+                                          color: textColor,
+                                          fontSize: 12 * scale,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 12 * scale),
+                                      child: Text(
+                                        date.day.toString(),
+                                        style: TextStyle(
+                                          color: textColor,
+                                          fontSize: 16 * scale,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
                       ),
-                      SizedBox(width: 16 * scale),
-                      Container(
-                        width: 60 * scale,
-                        height: 90 * scale,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      SizedBox(width: 16 * scale),
-                      Container(
-                        width: 60 * scale,
-                        height: 90 * scale,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
