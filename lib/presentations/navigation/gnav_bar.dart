@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:my_workout_cab/presentations/screens/create_screen.dart';
-import 'package:my_workout_cab/presentations/screens/profile_screen.dart';
-import 'package:my_workout_cab/presentations/screens/training_screen.dart';
+import 'package:my_workout_cab/presentations/screens/create/create_screen.dart';
+import 'package:my_workout_cab/presentations/screens/profile/profile_screen.dart';
+import 'package:my_workout_cab/presentations/screens/training/training_screen.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 class GoogleNavBar extends StatefulWidget {
