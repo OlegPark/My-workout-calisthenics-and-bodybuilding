@@ -39,7 +39,7 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
+                  SizedBox(height: 5 * scale),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -54,13 +54,12 @@ class SettingsAccScreen extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 16 * scale,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                     cursorColor: Colors.white,
                   ),
-                  SizedBox(height: 14 * scale),
+                  SizedBox(height: 5 * scale),
                   Text(
                     'Имя',
                     style: TextStyle(
@@ -69,7 +68,7 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
+                  SizedBox(height: 5 * scale),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -84,13 +83,12 @@ class SettingsAccScreen extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 16 * scale,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                     cursorColor: Colors.white,
                   ),
-                  SizedBox(height: 14 * scale),
+                  SizedBox(height: 5 * scale),
                   Text(
                     'Пароль',
                     style: TextStyle(
@@ -99,28 +97,47 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
-                  TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: customTheme?.cardColor ?? Colors.grey,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25 * scale),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16 * scale,
-                        vertical: 10 * scale,
+                  SizedBox(height: 5 * scale),
+                  // Кнопка "Изменить пароль" с закругленными углами
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    child: Material(
+                      color: customTheme?.cardColor ?? Colors.grey,
+                      child: InkWell(
+                        onTap: () {
+                          _showChangePasswordBottomSheet(context, scale);
+                        },
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 48 * scale,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16 * scale,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Изменить пароль',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16 * scale,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 16 * scale,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
-                    cursorColor: Colors.white,
                   ),
-                  SizedBox(height: 14 * scale),
+                  SizedBox(height: 5 * scale),
                   Text(
                     'Страна',
                     style: TextStyle(
@@ -129,7 +146,7 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
+                  SizedBox(height: 5 * scale),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -144,13 +161,12 @@ class SettingsAccScreen extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 16 * scale,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                     cursorColor: Colors.white,
                   ),
-                  SizedBox(height: 14 * scale),
+                  SizedBox(height: 5 * scale),
                   Text(
                     'Город',
                     style: TextStyle(
@@ -159,7 +175,7 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
+                  SizedBox(height: 5 * scale),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -174,13 +190,12 @@ class SettingsAccScreen extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 16 * scale,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                     cursorColor: Colors.white,
                   ),
-                  SizedBox(height: 14 * scale),
+                  SizedBox(height: 5 * scale),
                   Text(
                     'О себе',
                     style: TextStyle(
@@ -189,7 +204,7 @@ class SettingsAccScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10 * scale),
+                  SizedBox(height: 5 * scale),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -204,11 +219,82 @@ class SettingsAccScreen extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 16 * scale,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 16 * scale,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                     cursorColor: Colors.white,
+                  ),
+                  SizedBox(height: 60 * scale),
+                  // Кнопка "Сохранить изменения" с закругленными углами
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    child: Material(
+                      color: const Color(0xFF432222),
+                      child: InkWell(
+                        onTap: () {
+                          // Действие удаления аккаунта
+                        },
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25 * scale),
+                            border: Border.all(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 48 * scale,
+                            child: Center(
+                              child: Text(
+                                'Удалить аккаунт',
+                                style: TextStyle(
+                                  fontSize: 16 * scale,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16 * scale),
+                  // Кнопка "Удалить аккаунт" с закругленными углами
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          // Действие сохранения изменений
+                        },
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25 * scale),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 48 * scale,
+                            child: Center(
+                              child: Text(
+                                'Сохранить изменения',
+                                style: TextStyle(
+                                  fontSize: 16 * scale,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -216,6 +302,179 @@ class SettingsAccScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showChangePasswordBottomSheet(BuildContext context, double scale) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+        return Container(
+          padding: EdgeInsets.all(24 * scale),
+          decoration: BoxDecoration(
+            color: customTheme?.backgroundColor,
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(25 * scale)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40 * scale,
+                  height: 4 * scale,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(2 * scale),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20 * scale),
+              Text(
+                'Изменить пароль',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20 * scale,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20 * scale),
+              Text(
+                'Старый пароль',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16 * scale,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 5 * scale),
+              TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: customTheme?.cardColor ?? Colors.grey,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16 * scale,
+                    vertical: 10 * scale,
+                  ),
+                ),
+                style: TextStyle(
+                    fontSize: 16 * scale,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                cursorColor: Colors.white,
+              ),
+              SizedBox(height: 5 * scale),
+              Text(
+                'Новый пароль',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16 * scale,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 5 * scale),
+              TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: customTheme?.cardColor ?? Colors.grey,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16 * scale,
+                    vertical: 10 * scale,
+                  ),
+                ),
+                style: TextStyle(
+                    fontSize: 16 * scale,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                cursorColor: Colors.white,
+              ),
+              SizedBox(height: 5 * scale),
+              Text(
+                'Повторите новый пароль',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16 * scale,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 5 * scale),
+              TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: customTheme?.cardColor ?? Colors.grey,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25 * scale),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16 * scale,
+                    vertical: 10 * scale,
+                  ),
+                ),
+                style: TextStyle(
+                    fontSize: 16 * scale,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                cursorColor: Colors.white,
+              ),
+              SizedBox(height: 24 * scale),
+              // Кнопка "Сохранить" с закругленными углами
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25 * scale),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Пароль успешно изменен'),
+                        ),
+                      );
+                    },
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25 * scale),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 48 * scale,
+                        child: Center(
+                          child: Text(
+                            'Сохранить изменения',
+                            style: TextStyle(
+                              fontSize: 16 * scale,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+            ],
+          ),
+        );
+      },
     );
   }
 }
