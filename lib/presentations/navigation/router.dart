@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:my_workout_cab/presentations/screens/onboardings/onboarding2.dart';
-import 'package:my_workout_cab/presentations/screens/settings/setting_acc/settings_screen.dart';
+import 'package:my_workout_cab/presentations/screens/settings/setting_acc/settings_acc_screen.dart';
 
 
 final GoRouter router = GoRouter(

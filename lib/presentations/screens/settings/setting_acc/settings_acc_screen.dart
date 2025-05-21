@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_workout_cab/presentations/screens/settings/setting_acc/widgets/change_pass.dart';
+import 'package:my_workout_cab/presentations/screens/settings/setting_acc/widgets/delete_acc.dart';
 import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 class SettingsAccScreen extends StatelessWidget {
@@ -98,7 +100,6 @@ class SettingsAccScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5 * scale),
-                  // Кнопка "Изменить пароль" с закругленными углами
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25 * scale),
                     child: Material(
@@ -225,14 +226,13 @@ class SettingsAccScreen extends StatelessWidget {
                     cursorColor: Colors.white,
                   ),
                   SizedBox(height: 60 * scale),
-                  // Кнопка "Сохранить изменения" с закругленными углами
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25 * scale),
                     child: Material(
                       color: const Color(0xFF432222),
                       child: InkWell(
                         onTap: () {
-                          // Действие удаления аккаунта
+                          _showDeleteAccBottomSheet(context, scale);
                         },
                         child: DecoratedBox(
                           decoration: BoxDecoration(
@@ -261,7 +261,6 @@ class SettingsAccScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16 * scale),
-                  // Кнопка "Удалить аккаунт" с закругленными углами
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25 * scale),
                     child: Material(
@@ -310,171 +309,16 @@ class SettingsAccScreen extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) {
-        final customTheme = Theme.of(context).extension<CustomThemeExtension>();
-        return Container(
-          padding: EdgeInsets.all(24 * scale),
-          decoration: BoxDecoration(
-            color: customTheme?.backgroundColor,
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(25 * scale)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40 * scale,
-                  height: 4 * scale,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(2 * scale),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20 * scale),
-              Text(
-                'Изменить пароль',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20 * scale,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20 * scale),
-              Text(
-                'Старый пароль',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16 * scale,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5 * scale),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: customTheme?.cardColor ?? Colors.grey,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25 * scale),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16 * scale,
-                    vertical: 10 * scale,
-                  ),
-                ),
-                style: TextStyle(
-                    fontSize: 16 * scale,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                cursorColor: Colors.white,
-              ),
-              SizedBox(height: 5 * scale),
-              Text(
-                'Новый пароль',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16 * scale,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5 * scale),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: customTheme?.cardColor ?? Colors.grey,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25 * scale),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16 * scale,
-                    vertical: 10 * scale,
-                  ),
-                ),
-                style: TextStyle(
-                    fontSize: 16 * scale,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                cursorColor: Colors.white,
-              ),
-              SizedBox(height: 5 * scale),
-              Text(
-                'Повторите новый пароль',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16 * scale,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5 * scale),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: customTheme?.cardColor ?? Colors.grey,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25 * scale),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16 * scale,
-                    vertical: 10 * scale,
-                  ),
-                ),
-                style: TextStyle(
-                    fontSize: 16 * scale,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                cursorColor: Colors.white,
-              ),
-              SizedBox(height: 24 * scale),
-              // Кнопка "Сохранить" с закругленными углами
-              ClipRRect(
-                borderRadius: BorderRadius.circular(25 * scale),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Пароль успешно изменен'),
-                        ),
-                      );
-                    },
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25 * scale),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 48 * scale,
-                        child: Center(
-                          child: Text(
-                            'Сохранить изменения',
-                            style: TextStyle(
-                              fontSize: 16 * scale,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
-            ],
-          ),
-        );
-      },
+      builder: (context) => ChangePasswordBottomSheet(scale: scale),
+    );
+  }
+
+  void _showDeleteAccBottomSheet(BuildContext context, double scale) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => DeleteAccBottomSheet(scale: scale),
     );
   }
 }
