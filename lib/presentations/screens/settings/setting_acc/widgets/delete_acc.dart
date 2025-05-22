@@ -66,7 +66,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
           ),
           SizedBox(height: 20 * widget.scale),
           
-          // Цветные боксы с чекбоксами
+          
           ...List.generate(options.length, (index) => Padding(
             padding: EdgeInsets.only(bottom: 10 * widget.scale),
             child: GestureDetector(
@@ -81,7 +81,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
                 decoration: BoxDecoration(
                   color: _selectedOptions[index] 
                     ? Colors.white.withOpacity(0.2)
-                    : customTheme?.cardColor ?? Colors.grey,
+                    : customTheme?.cardColor ?? customTheme?.cardColor,
                   borderRadius: BorderRadius.circular(25 * widget.scale),
                 ),
                 child: Row(
@@ -92,7 +92,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
                         child: Text(
                           options[index],
                           style: TextStyle(
-                            fontSize: 16 * widget.scale,
+                            fontSize: 12 * widget.scale,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -136,7 +136,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
           )),
           
           SizedBox(height: 10 * widget.scale),
-          // Большое текстовое поле
+          
           SizedBox(
             width: 388 * widget.scale,
             height: 211 * widget.scale,
@@ -160,7 +160,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
                 ),
                 hintText: 'Почему вы хотите удалить свой аккаунт?',
                 hintStyle: TextStyle(
-                  fontSize: 16 * widget.scale,
+                  fontSize: 12 * widget.scale,
                   color: Colors.white.withOpacity(0.5),
                   fontWeight: FontWeight.bold,
                 ),
@@ -178,13 +178,13 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
           ClipRRect(
             borderRadius: BorderRadius.circular(25 * widget.scale),
             child: Material(
-              color: Colors.transparent,
+              color: const Color(0xFF432222),
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Пароль успешно изменен'),
+                      content: Text('Аккаунт удален'),
                     ),
                   );
                 },
@@ -192,7 +192,7 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25 * widget.scale),
                     border: Border.all(
-                      color: Colors.white,
+                      color: Colors.red,
                       width: 1.0,
                     ),
                   ),
@@ -201,11 +201,11 @@ class _DeleteAccBottomSheetState extends State<DeleteAccBottomSheet> {
                     height: 48 * widget.scale,
                     child: Center(
                       child: Text(
-                        'Сохранить изменения',
+                        'Удалить аккаунт',
                         style: TextStyle(
                           fontSize: 16 * widget.scale,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.red,
                         ),
                       ),
                     ),

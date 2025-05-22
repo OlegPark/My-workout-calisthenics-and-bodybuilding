@@ -1,14 +1,14 @@
 import 'package:go_router/go_router.dart';
-
+import 'package:my_workout_cab/presentations/navigation/gnav_bar.dart';
 import 'package:my_workout_cab/presentations/screens/onboardings/onboarding2.dart';
-import 'package:my_workout_cab/presentations/screens/settings/setting_acc/settings_acc_screen.dart';
+
 
 
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const SettingsAccScreen(),
+      builder: (context, state) => const GoogleNavBar(),
     ),
     GoRoute(
       path: '/onboarding2',
