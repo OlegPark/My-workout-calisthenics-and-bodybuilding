@@ -13,11 +13,10 @@ class ExercisePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Мои упражнения')),
-      body: Center( // Центрируем содержимое
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Первая картинка (45x45)
             SizedBox(
               width: 45,
               height: 45,
@@ -28,8 +27,7 @@ class ExercisePage extends StatelessWidget {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
-            const SizedBox(height: 20), // Отступ между картинками
-            // Вторая картинка (45x45)
+            const SizedBox(height: 20),
             SizedBox(
               width: 45,
               height: 45,
