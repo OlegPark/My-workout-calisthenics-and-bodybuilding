@@ -10,7 +10,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const GoogleNavBar(),
+      builder: (context, state) => const ExercisePage(),
     ),
     GoRoute(
       path: '/onboarding2',

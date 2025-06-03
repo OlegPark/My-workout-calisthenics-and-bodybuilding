@@ -8,7 +8,7 @@ class ExercisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrls = [
       'https://aponzacbhywcxmzmbwyo.supabase.co/storage/v1/object/public/exercises//biceps.png',
-      'https://aponzacbhywcxmzmbwyo.supabase.co/storage/v1/object/public/exercises//jim.png',
+      'https://aponzacbhywcxmzmbwyo.supabase.co/storage/v1/object/public/exercises//bench_press.png',
     ];
 
     return Scaffold(

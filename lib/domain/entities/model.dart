@@ -11,3 +11,5 @@ class Exercise {
     required this.muscleGroups,
   });
 }
+
+ 
