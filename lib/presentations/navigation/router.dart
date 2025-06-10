@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:my_workout_cab/presentations/navigation/gnav_bar.dart';
 
-import 'package:my_workout_cab/presentations/screens/create/exercises_screen/exercises_screen.dart';
 import 'package:my_workout_cab/presentations/screens/onboardings/onboarding2.dart';
+
+import 'package:my_workout_cab/presentations/screens/onboardings/onboarding_screen.dart';
 
 
 
@@ -10,7 +10,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const ExercisePage(),
+      builder: (context, state) => OnboardingScreen(),
     ),
     GoRoute(
       path: '/onboarding2',
