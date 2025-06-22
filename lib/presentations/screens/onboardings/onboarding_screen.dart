@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:ui'; // Необходимо для BackdropFilter
+import 'package:my_workout_cab/presentations/theme/theme_extension.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -133,57 +134,86 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           
           // Content
-          Column(
-            children: [
-              SizedBox(height: 50),
-              // Progress bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: LinearProgressIndicator(
-                  value: (_currentStep + 1) / _totalSteps,
-                  backgroundColor: Colors.grey[300],
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  minHeight: 8,
-                ),
-              ),
-              
-              Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    _buildGenderSelection(),
-                    _buildHeightSelection(),
-                    _buildWeightSelection(),
-                    _buildDesiredWeightSelection(),
-                    _buildGoalsSelection(),
-                  ],
-                ),
-              ),
-              
-              // Navigation buttons
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (_currentStep > 0)
-                      ElevatedButton(
-                        onPressed: _prevStep,
-                        child: Text('Назад'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
+          SafeArea(
+            child: Column(
+              children: [
+                // Top area: Back button (if needed) and centered progress bar
+                SizedBox(
+                  height: 72,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (_currentStep > 0)
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          bottom: 0,
+                          child: Builder(
+                            builder: (context) {
+                              final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                              return IconButton(
+                                icon: Icon(Icons.arrow_back, color: customTheme?.primaryColor ?? Colors.blue),
+                                onPressed: _prevStep,
+                                tooltip: 'Назад',
+                              );
+                            },
+                          ),
+                        ),
+                      Center(
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                            final primaryColor = customTheme?.primaryColor ?? Colors.blue;
+                            final double maxBarWidth = 250;
+                            final double barWidth = constraints.maxWidth < maxBarWidth ? constraints.maxWidth - 40 : maxBarWidth;
+                            return SizedBox(
+                              width: barWidth,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: LinearProgressIndicator(
+                                  value: (_currentStep + 1) / _totalSteps,
+                                  backgroundColor: primaryColor.withOpacity(0.5),
+                                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                                  minHeight: 10,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    Spacer(),
-                    ElevatedButton(
-                      onPressed: _nextStep,
-                      child: Text(_currentStep == _totalSteps - 1 ? 'Завершить' : 'Далее'),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      _buildGenderSelection(),
+                      _buildHeightSelection(),
+                      _buildWeightSelection(),
+                      _buildDesiredWeightSelection(),
+                      _buildGoalsSelection(),
+                    ],
+                  ),
+                ),
+                
+                // Navigation button (only 'Далее'/'Завершить')
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: _nextStep,
+                        child: Text(_currentStep == _totalSteps - 1 ? 'Завершить' : 'Далее'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
