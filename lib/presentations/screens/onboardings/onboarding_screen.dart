@@ -10,6 +10,7 @@ import 'widgets/height_selection.dart';
 import 'widgets/onboarding_controller.dart';
 import 'widgets/progress_indicator.dart';
 import 'widgets/weight_selection.dart';
+import '../../theme/theme_extension.dart';
 
 
 class OnboardingScreen extends StatefulWidget {
@@ -127,28 +128,49 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(left: 20, right: 20, bottom: 70),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_controller.currentStep < _controller.totalSteps - 1) {
-                            _controller.nextStep();
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RegistrationScreen(),
+                      Builder(
+                        builder: (context) {
+                          final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                          return SizedBox(
+                            width: 251,
+                            height: 46,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_controller.currentStep < _controller.totalSteps - 1) {
+                                  _controller.nextStep();
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RegistrationScreen(),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: customTheme?.primaryColor ?? Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                elevation: 2,
                               ),
-                            );
-                          }
+                              child: Text(
+                                _controller.currentStep == _controller.totalSteps - 1
+                                    ? 'Завершить'
+                                    : 'Далее',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          );
                         },
-                        child: Text(
-                          _controller.currentStep == _controller.totalSteps - 1 
-                              ? 'Завершить' 
-                              : 'Далее',
-                        ),
                       ),
                     ],
                   ),
