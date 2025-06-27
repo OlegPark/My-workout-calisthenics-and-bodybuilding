@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/theme_extension.dart';
 
 class DesiredWeightSelection extends StatelessWidget {
   final int desiredWeight;
@@ -16,7 +17,7 @@ class DesiredWeightSelection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Выберите желаемый вес',
+            'Желаемый вес',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -24,24 +25,72 @@ class DesiredWeightSelection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 40),
-          Text(
-            '$desiredWeight кг',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+          SizedBox(
+            height: 200,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Builder(
+                  builder: (context) {
+                    final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                    final primaryColor = customTheme?.primaryColor ?? Colors.blue;
+                    return Align(
+                      alignment: Alignment(0, 0.01),
+                      child: Container(
+                        width: 250,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                NotificationListener<ScrollNotification>(
+                  onNotification: (_) => true,
+                  child: ListWheelScrollView.useDelegate(
+                    itemExtent: 40,
+                    diameterRatio: 1.2,
+                    physics: FixedExtentScrollPhysics(),
+                    perspective: 0.003,
+                    onSelectedItemChanged: (index) => onDesiredWeightChanged(40 + index),
+                    controller: FixedExtentScrollController(initialItem: desiredWeight - 40),
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      builder: (context, index) {
+                        final value = 40 + index;
+                        final isSelected = value == desiredWeight;
+                        if (value > 150) return null;
+                        final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                        final backgroundColor = customTheme?.backgroundColor ?? Colors.white;
+                        if (isSelected) {
+                          return Center(
+                            child: Text(
+                              '$value',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: backgroundColor,
+                              ),
+                            ),
+                          );
+                        }
+                        return Center(
+                          child: Text(
+                            '$value',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(height: 20),
-          Slider(
-            value: desiredWeight.toDouble(),
-            min: 40,
-            max: 150,
-            divisions: 110,
-            label: '$desiredWeight кг',
-            onChanged: (value) => onDesiredWeightChanged(value.round()),
-            activeColor: Colors.blue,
-            inactiveColor: Colors.grey,
           ),
         ],
       ),

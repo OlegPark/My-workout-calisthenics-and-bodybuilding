@@ -16,26 +16,17 @@ class GoalsSelection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Установите ваши цели',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(height: 30),
           _buildGoalDropdown(
-            'Основная цель',
+            'Цель',
             'mainGoal',
-            ['Похудеть', 'Набрать мышцы', 'Поддерживать форму'],
+            ['Похудеть', 'Набрать мышечной массы', 'Поддерживать форму'],
           ),
           SizedBox(height: 20),
-          _buildGoalCounter('Макс. подтягиваний', 'pullUps'),
+          _buildGoalCounter('Максимально подтягиваний', 'pullUps'),
           SizedBox(height: 20),
-          _buildGoalCounter('Макс. отжиманий', 'pushUps'),
+          _buildGoalCounter('Максимально отжиманий', 'pushUps'),
           SizedBox(height: 20),
-          _buildGoalCounter('Макс. приседаний', 'squats'),
+          _buildGoalCounter('Максимально приседаний', 'squats'),
         ],
       ),
     );

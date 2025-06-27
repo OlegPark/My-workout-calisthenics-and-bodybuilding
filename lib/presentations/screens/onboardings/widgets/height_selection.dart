@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/theme_extension.dart';
 
 class HeightSelection extends StatelessWidget {
   final int height;
@@ -16,7 +17,7 @@ class HeightSelection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Выберите ваш рост',
+            'Рост',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -24,29 +25,72 @@ class HeightSelection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 40),
-          Text(
-            '$height см',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(height: 20),
           SizedBox(
             height: 200,
-            child: RotatedBox(
-              quarterTurns: -1,
-              child: Slider(
-                value: height.toDouble(),
-                min: 120,
-                max: 220,
-                divisions: 100,
-                label: '$height см',
-                onChanged: (value) => onHeightChanged(value.round()),
-                activeColor: Colors.blue,
-                inactiveColor: Colors.grey,
-              ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Статичный прямоугольник
+                Builder(
+                  builder: (context) {
+                    final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                    final primaryColor = customTheme?.primaryColor ?? Colors.blue;
+                    return Align(
+                      alignment: Alignment(0, 0.01), // чуть ниже центра
+                      child: Container(
+                        width: 250,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                NotificationListener<ScrollNotification>(
+                  onNotification: (_) => true,
+                  child: ListWheelScrollView.useDelegate(
+                    itemExtent: 40,
+                    diameterRatio: 1.2,
+                    physics: FixedExtentScrollPhysics(),
+                    perspective: 0.003,
+                    onSelectedItemChanged: (index) => onHeightChanged(120 + index),
+                    controller: FixedExtentScrollController(initialItem: height - 120),
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      builder: (context, index) {
+                        final value = 120 + index;
+                        final isSelected = value == height;
+                        if (value > 220) return null;
+                        final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+                        final backgroundColor = customTheme?.backgroundColor ?? Colors.white;
+                        if (isSelected) {
+                          return Center(
+                            child: Text(
+                              '$value',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: backgroundColor,
+                              ),
+                            ),
+                          );
+                        }
+                        return Center(
+                          child: Text(
+                            '$value',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
