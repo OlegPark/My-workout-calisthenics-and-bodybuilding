@@ -25,11 +25,11 @@ class OnboardingProgressIndicator extends StatelessWidget {
         children: [
           if (currentStep > 0)
             Positioned(
-              left: 0,
+              left: 10,
               top: 0,
               bottom: 0,
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: primaryColor),
+                icon: Icon(Icons.arrow_back_ios, color: primaryColor),
                 onPressed: onBack,
                 tooltip: 'Назад',
               ),

@@ -8,7 +8,7 @@ class OnboardingController extends ChangeNotifier {
   bool isVideoInitialized = false;
   String videoError = '';
   
-  String? gender;
+  String? gender = 'male';
   int height = 170;
   int weight = 70;
   int desiredWeight = 65;
