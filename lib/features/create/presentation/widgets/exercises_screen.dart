@@ -170,17 +170,17 @@ class _ExercisePageState extends State<ExercisePage> {
                                 )
                               : null,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(
                               color: customTheme?.gnavColor ?? Colors.grey,
                               width: 2,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(
                               color: customTheme?.gnavColor?.withValues(alpha: 0.3) ?? Colors.grey,
                             ),
