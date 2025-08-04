@@ -5,6 +5,7 @@ import 'package:my_workout_cab/core/services/database/firestore_service.dart';
 import 'package:my_workout_cab/core/services/storage/storage_service.dart';
 import 'package:my_workout_cab/core/services/storage/firebase_storage_service.dart';
 import 'package:my_workout_cab/features/create/domain/entities/model.dart';
+import 'package:my_workout_cab/core/theme/theme_extension.dart';
 
 class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
@@ -17,12 +18,35 @@ class _ExercisePageState extends State<ExercisePage> {
   final DatabaseService _databaseService = FirestoreService();
   final StorageService _storageService = FirebaseStorageService();
   List<Exercise> exercises = [];
+  List<Exercise> filteredExercises = []; // Отфильтрованные упражнения
+  Set<String> selectedExercises = {}; // Для отслеживания выбранных упражнений
   bool isLoading = true;
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _loadExercises();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _filterExercises(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredExercises = exercises;
+      } else {
+        filteredExercises = exercises.where((exercise) {
+          return exercise.name.toLowerCase().contains(query.toLowerCase()) ||
+                 exercise.muscleGroups.any((group) => 
+                   group.toLowerCase().contains(query.toLowerCase()));
+        }).toList();
+      }
+    });
   }
 
   Future<void> _loadExercises() async {
@@ -47,6 +71,7 @@ class _ExercisePageState extends State<ExercisePage> {
       
       setState(() {
         exercises = exercisesWithImages;
+        filteredExercises = exercisesWithImages; // Инициализируем отфильтрованные упражнения
         isLoading = false;
       });
     } catch (e) {
@@ -58,15 +83,26 @@ class _ExercisePageState extends State<ExercisePage> {
 
   @override
   Widget build(BuildContext context) {
+    final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+    
     return Scaffold(
+      backgroundColor: customTheme?.backgroundColor,
       appBar: AppBar(
-        title: const Text('Мои упражнения'),
-        backgroundColor: Colors.transparent,
+        title: Text(
+          'Мои упражнения',
+          style: TextStyle(
+            color: customTheme?.gnavColor,
+            fontFamily: customTheme?.customTextStyle?.fontFamily,
+          ),
+        ),
+        backgroundColor: customTheme?.backgroundColor,
         elevation: 0,
       ),
       body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Center(
+              child: CircularProgressIndicator(
+                color: customTheme?.gnavColor,
+              ),
             )
           : exercises.isEmpty
               ? Center(
@@ -76,14 +112,15 @@ class _ExercisePageState extends State<ExercisePage> {
                       Icon(
                         Icons.fitness_center,
                         size: 64,
-                        color: Colors.grey[400],
+                        color: customTheme?.gnavColor?.withValues(alpha: 0.4),
                       ),
                       const SizedBox(height: 16),
                       Text(
                         'Упражнения не найдены',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.grey[600],
+                          color: customTheme?.gnavColor,
+                          fontFamily: customTheme?.customTextStyle?.fontFamily,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -91,94 +128,172 @@ class _ExercisePageState extends State<ExercisePage> {
                         'Добавьте упражнения в Firestore',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[500],
+                          color: customTheme?.gnavColor?.withValues(alpha: 0.6),
+                          fontFamily: customTheme?.customTextStyle?.fontFamily,
                         ),
                       ),
                     ],
                   ),
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ListView.builder(
-                    itemCount: exercises.length,
-                    itemBuilder: (context, index) {
-                      final exercise = exercises[index];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+              : Column(
+                  children: [
+                    // Поле поиска
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: _filterExercises,
+                        style: TextStyle(
+                          color: customTheme?.gnavColor,
+                          fontFamily: customTheme?.customTextStyle?.fontFamily,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              // Изображение упражнения
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: SizedBox(
-                                  width: 60,
-                                  height: 60,
-                                  child: CachedNetworkImage(
-                                    imageUrl: exercise.imageUrl,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => Container(
-                                      color: Colors.grey[300],
-                                      child: const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, error) => Container(
-                                      color: Colors.grey[300],
-                                      child: const Icon(
-                                        Icons.fitness_center,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
+                        decoration: InputDecoration(
+                          hintText: 'Поиск упражнений...',
+                          hintStyle: TextStyle(
+                            color: customTheme?.gnavColor?.withValues(alpha: 0.6),
+                            fontFamily: customTheme?.customTextStyle?.fontFamily,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: customTheme?.gnavColor,
+                          ),
+                          suffixIcon: _searchController.text.isNotEmpty
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.clear,
+                                    color: customTheme?.gnavColor,
                                   ),
-                                ),
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    _filterExercises('');
+                                  },
+                                )
+                              : null,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: customTheme?.gnavColor ?? Colors.grey,
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: customTheme?.gnavColor?.withValues(alpha: 0.3) ?? Colors.grey,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: customTheme?.cardColor,
+                        ),
+                      ),
+                    ),
+                    // Список упражнений
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: ListView.builder(
+                          itemCount: filteredExercises.length,
+                          itemBuilder: (context, index) {
+                            final exercise = filteredExercises[index];
+                            return Card(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              elevation: 4,
+                              color: customTheme?.cardColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              const SizedBox(width: 16),
-                              // Информация об упражнении
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
                                   children: [
-                                    Text(
-                                      exercise.name,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                    // Изображение упражнения
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: CachedNetworkImage(
+                                          imageUrl: exercise.imageUrl,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) => Container(
+                                            color: customTheme?.gnavColor?.withValues(alpha: 0.1),
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                color: customTheme?.gnavColor,
+                                              ),
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) => Container(
+                                            color: customTheme?.gnavColor?.withValues(alpha: 0.1),
+                                            child: Icon(
+                                              Icons.fitness_center,
+                                              color: customTheme?.gnavColor?.withValues(alpha: 0.5),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Группы мышц: ${exercise.muscleGroups.join(', ')}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[600],
+                                    const SizedBox(width: 16),
+                                    // Информация об упражнении
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            exercise.name,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: customTheme?.gnavColor,
+                                              fontFamily: customTheme?.customTextStyle?.fontFamily,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            exercise.muscleGroups.join(', '),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: customTheme?.gnavColor?.withValues(alpha: 0.7),
+                                              fontFamily: customTheme?.customTextStyle?.fontFamily,
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                    ),
+                                    // Чекбокс
+                                    Checkbox(
+                                      value: selectedExercises.contains(exercise.id),
+                                      activeColor: customTheme?.gnavColor,
+                                      checkColor: customTheme?.cardColor,
+                                      onChanged: (value) {
+                                        if (value == true) {
+                                          setState(() {
+                                            selectedExercises.add(exercise.id);
+                                          });
+                                        } else {
+                                          setState(() {
+                                            selectedExercises.remove(exercise.id);
+                                          });
+                                        }
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Выбрано упражнение: ${exercise.name}'),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                              // Кнопка действия
-                              IconButton(
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Выбрано упражнение: ${exercise.name}'),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.arrow_forward_ios),
-                              ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
     );
   }
