@@ -15,6 +15,7 @@ class FirestoreService implements DatabaseService {
     // Firebase автоматически управляет ресурсами
   }
 
+  @override
   // Получить все упражнения из Firestore
   Future<List<Exercise>> getExercises() async {
     try {
