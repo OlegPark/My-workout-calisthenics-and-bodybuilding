@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:my_workout_cab/core/services/database/database_service.dart';
 import 'package:my_workout_cab/core/services/database/firestore_service.dart';
+import 'package:my_workout_cab/core/services/storage/storage_service.dart';
 import 'package:my_workout_cab/core/services/storage/firebase_storage_service.dart';
 import 'package:my_workout_cab/features/create/domain/entities/model.dart';
 
@@ -12,8 +14,8 @@ class ExercisePage extends StatefulWidget {
 }
 
 class _ExercisePageState extends State<ExercisePage> {
-  final FirestoreService _firestoreService = FirestoreService();
-  final FirebaseStorageService _storageService = FirebaseStorageService();
+  final DatabaseService _databaseService = FirestoreService();
+  final StorageService _storageService = FirebaseStorageService();
   List<Exercise> exercises = [];
   bool isLoading = true;
 
@@ -26,14 +28,14 @@ class _ExercisePageState extends State<ExercisePage> {
   Future<void> _loadExercises() async {
     try {
       // Получаем упражнения из Firestore
-      final List<Exercise> firestoreExercises = await _firestoreService.getExercises();
+      final List<Exercise> firestoreExercises = await _databaseService.getExercises();
       
       // Для каждого упражнения получаем правильный URL изображения
       final List<Exercise> exercisesWithImages = [];
       
       for (Exercise exercise in firestoreExercises) {
         // Используем прямые URL для изображений
-        final String imageUrl = _storageService.getDirectImageUrl(exercise.imageUrl);
+        final String imageUrl = _storageService.getPublicImageUrl(exercise.imageUrl);
         
         exercisesWithImages.add(Exercise(
           id: exercise.id,

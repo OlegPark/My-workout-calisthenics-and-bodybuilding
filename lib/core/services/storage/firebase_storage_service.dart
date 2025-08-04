@@ -1,9 +1,20 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:my_workout_cab/core/services/storage/storage_service.dart';
 
-class FirebaseStorageService {
+class FirebaseStorageService implements StorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  // Получить URL изображения по имени файла
+  @override
+  Future<void> init() async {
+    // Firebase уже инициализирован в main.dart
+  }
+
+  @override
+  Future<void> dispose() async {
+    // Firebase автоматически управляет ресурсами
+  }
+
+  @override
   Future<String?> getImageUrl(String fileName) async {
     try {
       final Reference ref = _storage.ref(fileName);
@@ -11,6 +22,12 @@ class FirebaseStorageService {
     } catch (e) {
       return null;
     }
+  }
+
+  @override
+  String getPublicImageUrl(String fileName) {
+    final encodedFileName = Uri.encodeComponent(fileName);
+    return 'https://firebasestorage.googleapis.com/v0/b/my-wcab.firebasestorage.app/o/$encodedFileName?alt=media';
   }
 
   // Получить URL изображения для упражнения
@@ -26,12 +43,6 @@ class FirebaseStorageService {
     } catch (e) {
       return null;
     }
-  }
-
-  // Создать публичный URL для изображения
-  String getPublicImageUrl(String fileName) {
-    final encodedFileName = Uri.encodeComponent(fileName);
-    return 'https://firebasestorage.googleapis.com/v0/b/my-wcab.firebasestorage.app/o/$encodedFileName?alt=media';
   }
 
   // Получить URL изображения с приоритетом на прямые URL
