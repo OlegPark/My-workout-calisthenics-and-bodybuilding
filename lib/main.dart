@@ -3,17 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:my_workout_cab/firebase_options.dart';
 import 'package:my_workout_cab/core/navigation/router.dart';
 import 'package:my_workout_cab/core/theme/theme_extension.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-
-  await Supabase.initialize(
-    url: 'https://aponzacbhywcxmzmbwyo.supabase.co', 
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwb256YWNiaHl3Y3htem1id3lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4MzU1NjEsImV4cCI6MjA2MzQxMTU2MX0.TTbnfYn3LUTw-hCJ_bKeffGdkaHlXSQBWCQJh4_R030',
-  );
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
