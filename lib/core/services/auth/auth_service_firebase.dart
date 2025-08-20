@@ -10,13 +10,12 @@ class AuthServiceFirebase implements AuthService {
 
   @override
   Future<bool> login() async {
-    // TODO: implement login
-    throw UnimplementedError();
+    final result = _firebaseAuth.signInWithEmailAndPassword(email: 'email', password: 'password');
+    return result != null;
   }
 
   @override
   Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+    return _firebaseAuth.signOut();
   }
 }
