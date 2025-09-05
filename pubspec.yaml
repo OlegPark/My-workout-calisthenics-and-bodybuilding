@@ -22,6 +22,8 @@ dependencies:
   cloud_firestore: ^6.0.0
   video_player: ^2.10.0
   firebase_auth: ^6.0.1
+  icons_launcher: ^3.0.2
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -63,3 +65,24 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+icons_launcher:
+  image_path: 'assets/images/iconApp.png'
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+
+# отступ слева нулевой
+flutter_native_splash:
+  color: '#000000'
+  image: assets/images/splash.jpeg
+  color_dark: '#000000'
+  image_dark: assets/images/splash.jpeg
+  android_12:
+    image: assets/images/splash.jpeg
+    color: '#000000'
+    image_dark: assets/images/splash.jpeg
+    color_dark: '#000000'
+  web: false
