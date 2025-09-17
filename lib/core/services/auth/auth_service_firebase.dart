@@ -19,3 +19,5 @@ class AuthServiceFirebase implements AuthService {
     return _firebaseAuth.signOut();
   }
 }
+
+//доделать
